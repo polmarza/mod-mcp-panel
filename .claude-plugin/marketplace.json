@@ -1,0 +1,14 @@
+{
+  "name": "mcp-panel",
+  "owner": {
+    "name": "Pol Marzà"
+  },
+  "description": "Panel de conectores MCP del proyecto para Claude Code",
+  "plugins": [
+    {
+      "name": "mcp-panel",
+      "source": "./",
+      "description": "Panel con los MCP propios del proyecto, su estado real y el de esta sesión, y un botón para reconectar"
+    }
+  ]
+}

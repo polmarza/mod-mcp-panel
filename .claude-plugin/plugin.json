@@ -1,6 +1,6 @@
 {
   "name": "mcp-panel",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Panel con los MCP propios del proyecto, su estado real y el de esta sesión, y un botón para reconectar",
   "author": {
     "name": "Pol Marzà"

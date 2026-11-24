@@ -201,13 +201,11 @@ const ETIQUETA: Record<Estado, string> = {
   desconocido: '¿?',
 }
 
-const MARCA: Record<Estado, string> = {
-  conectado: '●',
-  sesion: '◐',
-  falla: '✕',
-  apagado: '○',
-  'sin-aprobar': '◌',
-  desconocido: '·',
+// Dos marcas y dos colores, sin más matices: ✓ en verde si la sesión lo tiene
+// conectado, ⚠ en naranja si no. La forma distingue el estado aunque no se
+// distingan los colores (daltonismo).
+function marca(e: Estado): { icono: string; color: 'success' | 'warning' } {
+  return e === 'conectado' ? { icono: '✓', color: 'success' } : { icono: '⚠', color: 'warning' }
 }
 
 function hace(ms: number): string {
@@ -264,10 +262,11 @@ export const register: Register = on => {
           return (
             <Box key={c.nombre} flexDirection="column">
               <Text bold={c.sesion !== 'conectado'}>
-                {MARCA[c.sesion]} {c.nombre} <Text dimColor>· {c.ambito === 'local' ? 'local, solo tú' : '.mcp.json'}</Text>
+                <Text color={marca(c.sesion).color}>{marca(c.sesion).icono}</Text> {c.nombre} <Text dimColor>· {c.ambito === 'local' ? 'local, solo tú' : '.mcp.json'}</Text>
               </Text>
               <Text dimColor>
-                {'  '}esta sesión: {ETIQUETA[c.sesion]} · real: {ETIQUETA[c.fuera]}
+                {'  '}esta sesión: <Text color={marca(c.sesion).color}>{ETIQUETA[c.sesion]}</Text> · real:{' '}
+                <Text color={marca(c.fuera).color}>{ETIQUETA[c.fuera]}</Text>
                 {descuadre && c.fuera === 'conectado' ? ' → la sesión no lo ha recogido' : ''}
               </Text>
               {c.sesion !== 'conectado' && c.sesion !== 'apagado' && (
